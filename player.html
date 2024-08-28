@@ -5,18 +5,24 @@
     <meta property="og:image" content="https://i.ibb.co/ckfw00k/9-Pqxhps-GT9-CCg-ND-E9-Me-XQ.jpg" itemprop="thumbnailUrl">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">Kishor Live TV</title>
+    <title id="pageTitle">Live TV Channel</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Delius">
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.9/plyr.css" />
     <style>
         body {
-            font-family: 'Raleway', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #141414;
             color: #fff;
             text-align: center;
+        }
+        marquee {
+            font-size: 25px;
+            font-weight: 800;
+            color: Blue;
+            font-family: sans-serif;
         }
         .container {
             padding: 2rem;
@@ -27,44 +33,37 @@
             margin: 1rem 0;
             border: 1px solid #333;
             border-radius: 4px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        }
-        #file-name {
-            font-size: 28px;
-            font-weight: bold;
-            color: #00aaff;
-            margin-top: 10px;
         }
         footer {
             margin-top: 20px;
-            padding: 20px;
-            background-color: #111;
+            padding: 10px;
+            background-color: #141414;
             color: #fff;
-            font-size: 14px;
         }
         a {
             color: #e50914;
             text-decoration: none;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <header>
-        <div id="file-name">Loading...</div>
+        <marquee bgcolor="#141413">
+            <div id="file-name">Loading...</div>
+        </marquee>
     </header>
 
     <div class="container">
         <video id="videoPlayer" class="player" controls>
-            <source id="videoSource" type="video/mp4">
+            <source id="videoSource" type="application/x-mpegURL">
             Your browser does not support the video tag.
         </video>
     </div>
 
     <footer>
-        <h4>If the live stream is not working, please refresh the page or check back later.</h4>
-        <h2><a href="https://www.instagram.com/kishorofficials/" target="_blank">@KishorOfficials</a></h2>
-        <h4>Follow us on Instagram!</h4>
+        <center><h4>Stream not playing? Please check the URL or try another channel.</h4></center>
+        <center><h2><b><a href="https://www.instagram.com/kishorofficials/" target="_blank">@KishorOfficials</a></b></h2></center>
+        <center><h4>Follow us on Instagram!</h4></center>
     </footer>
 
     <script src="https://cdn.plyr.io/3.6.9/plyr.js"></script>
@@ -87,19 +86,17 @@
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
-            // URL Structure: yourwebsite.com/livetv/page.html?videoUrl=https://path-to-video.mp4&alias=ChannelName
             const params = new URLSearchParams(window.location.search);
             const videoUrl = params.get('videoUrl');
             const alias = params.get('alias');
             
             if (videoUrl && alias) {
                 document.getElementById('file-name').textContent = alias;
-                document.getElementById('pageTitle').textContent = alias + " - Kishor Live TV";
+                document.getElementById('pageTitle').textContent = alias + " - Live TV Channel";
                 
                 const videoSource = document.getElementById('videoSource');
                 videoSource.src = videoUrl;
                 
-                // Initialize the video player
                 const player = Plyr.setup('.player', { controls });
                 
                 document.getElementById('videoPlayer').load();
