@@ -1,0 +1,57 @@
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: #141414;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 20px 0;
+    font-size: 24px;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px;
+}
+
+.channel {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.channel:hover {
+    transform: scale(1.05);
+    border-color: #ff5722;
+}
+
+.channel img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.channel p {
+    margin: 0;
+    font-size: 16px;
+    color: #ccc;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    .channel {
+        width: 120px;
+    }
+}
