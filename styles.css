@@ -1,0 +1,109 @@
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: #141414;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+header h1 {
+    margin: 20px 0;
+    font-size: 24px;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px auto; /* Center the container */
+    max-width: 1200px; /* Limit the max width */
+}
+
+.channel {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, border-color 0.3s; /* Smooth transition */
+}
+
+.channel:hover {
+    transform: scale(1.05);
+    border-color: #ff5722;
+}
+
+.channel img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.channel p {
+    margin: 0;
+    font-size: 16px;
+    color: #ccc;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    .channel {
+        width: 120px;
+    }
+}
+
+/* Animated Search Bar */
+.search-container {
+    margin: 20px auto;
+    position: relative;
+    width: 300px; /* Adjust size */
+}
+
+.search-container input[type="text"] {
+    width: 100%;
+    padding: 10px 20px;
+    border: 1px solid #333;
+    border-radius: 20px;
+    outline: none;
+    color: #fff;
+    background-color: #333;
+    transition: width 0.4s ease-in-out; /* Animation for expanding */
+}
+
+.search-container input[type="text"]:focus {
+    width: 400px; /* Expand width on focus */
+    border-color: #ff5722;
+}
+
+.search-container input[type="text"]::placeholder {
+    color: #ccc;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.search-container input[type="text"]:focus::placeholder {
+    opacity: 0; /* Hide placeholder text on focus */
+}
+
+.search-container button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.search-container button:hover {
+    color: #ff5722;
+}

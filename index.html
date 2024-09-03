@@ -1,0 +1,37 @@
+<body>
+    <header>
+        <h1>Kishor Stream - TV</h1>
+    </header>
+
+    <!-- Animated Search Bar -->
+    <div class="search-container">
+        <input type="text" placeholder="Search channels...">
+        <button onclick="searchChannels()">&#128269;</button> <!-- Unicode for search icon -->
+    </div>
+
+    <div class="container" id="channel-container">
+        <!-- Channels will be loaded here -->
+    </div>
+
+    <script>
+        function redirectToPlayer(url, name) {
+            const playerUrl = 'player.html?videoUrl=' + encodeURIComponent(url) + '&alias=' + encodeURIComponent(name);
+            window.location.href = playerUrl;
+        }
+
+        // Fetch and parse the m3u file (add your fetch code here)
+        
+        function searchChannels() {
+            const query = document.querySelector('.search-container input').value.toLowerCase();
+            const channels = document.querySelectorAll('.channel');
+            channels.forEach(channel => {
+                const name = channel.querySelector('p').textContent.toLowerCase();
+                if (name.includes(query)) {
+                    channel.style.display = 'block';
+                } else {
+                    channel.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
