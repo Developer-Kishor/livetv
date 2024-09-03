@@ -1,12 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live TV Channels</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 <body>
     <header>
         <h1>Kishor Stream - TV</h1>
     </header>
 
-    <!-- Animated Search Bar -->
+    <!-- Search Bar -->
     <div class="search-container">
-        <input type="text" placeholder="Search channels...">
-        <button onclick="searchChannels()">&#128269;</button> <!-- Unicode for search icon -->
+        <input type="text" id="searchInput" placeholder="Search channels..." oninput="searchChannels()">
+        <button onclick="searchChannels()">&#128269;</button> <!-- Search icon -->
     </div>
 
     <div class="container" id="channel-container">
@@ -14,24 +23,68 @@
     </div>
 
     <script>
+        // Function to redirect to the player page
         function redirectToPlayer(url, name) {
             const playerUrl = 'player.html?videoUrl=' + encodeURIComponent(url) + '&alias=' + encodeURIComponent(name);
             window.location.href = playerUrl;
         }
 
-        // Fetch and parse the m3u file (add your fetch code here)
-        
+        // Fetch and parse the m3u file
+        fetch('channels.m3u') // Replace with the URL of your m3u file
+            .then(response => response.text())
+            .then(data => {
+                const lines = data.split('\n'); // Split file content by lines
+                const channels = [];
+
+                for (let i = 0; i < lines.length; i++) {
+                    if (lines[i].startsWith('#EXTINF')) {
+                        const nameMatch = lines[i].match(/,(.+)/); // Extract channel name
+                        const logoMatch = lines[i].match(/tvg-logo="(.+?)"/); // Extract logo URL
+                        const url = lines[i + 1]?.trim(); // Get the URL on the next line
+
+                        if (nameMatch && url) {
+                            channels.push({
+                                name: nameMatch[1],
+                                logo: logoMatch ? logoMatch[1] : '', // Default to empty if no logo
+                                url: url
+                            });
+                        }
+                    }
+                }
+
+                // Display channels on the page
+                displayChannels(channels);
+            })
+            .catch(error => console.error('Error loading channels:', error));
+
+        // Display channels
+        function displayChannels(channels) {
+            const channelContainer = document.getElementById('channel-container');
+            channelContainer.innerHTML = ''; // Clear any existing content
+
+            channels.forEach(channel => {
+                const channelDiv = document.createElement('div');
+                channelDiv.classList.add('channel');
+                channelDiv.onclick = () => redirectToPlayer(channel.url, channel.name);
+
+                channelDiv.innerHTML = `
+                    <img src="${channel.logo}" alt="${channel.name}">
+                    <p>${channel.name}</p>
+                `;
+
+                channelContainer.appendChild(channelDiv);
+            });
+        }
+
+        // Function to filter channels based on search input
         function searchChannels() {
-            const query = document.querySelector('.search-container input').value.toLowerCase();
+            const query = document.getElementById('searchInput').value.toLowerCase();
             const channels = document.querySelectorAll('.channel');
             channels.forEach(channel => {
                 const name = channel.querySelector('p').textContent.toLowerCase();
-                if (name.includes(query)) {
-                    channel.style.display = 'block';
-                } else {
-                    channel.style.display = 'none';
-                }
+                channel.style.display = name.includes(query) ? 'block' : 'none';
             });
         }
     </script>
 </body>
+</html>
